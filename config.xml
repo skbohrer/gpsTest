@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns   = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+		xmlns:android = "http://schemas.android.com/apk/res/android"
+        id          = "com.steadmanhill.gpstest"
+        versionCode = "1"
+        version     = "1.0" >
+
+    <!-- versionCode is Android only: increase each build, unrelated to displayed version -->
+
+		<name>GpsTest</name>
+
+        <description>
+			Test core geolocation plugin.
+        </description>
+
+        <author email="dev.steadman.hill@gmail.com">
+			Steve Bohrer
+		</author>
+
+				<!-- preferences -->
+		<preference name="permissions" value="none"/>			<!-- core plugins add own permissions -->
+		<preference name="phonegap-version" value="3.6.3" /> 	<!-- all: current version of PhoneGap -->
+		<preference name="orientation" value="default" /> 		<!-- all: default means both landscape and portrait are enabled -->
+		<preference name="target-device" value="universal" /> 	<!-- all: possible values handset, tablet, or universal -->
+		<preference name="fullscreen" value="false" /> 			<!-- all: hides the status bar at the top of the screen -->
+		<access origin="*" />
+
+				<!-- Android -->
+		<preference name="android-minSdkVersion" value="7" /> 			<!-- android: MIN SDK version supported on the target device. -->
+		<preference name="android-targetSdkVersion" value="19" /> 		<!-- highest version app was tested on. 19 == KitKat -->
+
+		<gap:platform name="android" />
+		<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
+</widget>
