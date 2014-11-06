@@ -24,20 +24,24 @@ function getTS() {
 // This method accepts a Position object, which contains the
 // current GPS coordinates
 //
-var onSuccess = function (position, idx, ts) {
-    var outStr = 
-		  'Request #' + idx + ' @ ' + ts 							+ '<br>' +
-		  'Latitude: '          + position.coords.latitude          + '<br>' +
-          'Longitude: '         + position.coords.longitude         + '<br>' +
-          'Altitude: '          + position.coords.altitude          + '<br>' +
-          'Accuracy: '          + position.coords.accuracy          + '<br>' +
-          'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '<br>' +
-          'Heading: '           + position.coords.heading           + '<br>' +
-          'Speed: '             + position.coords.speed             + '<br>' +
-          'Timestamp: '         + position.timestamp                + '<br>' +
-		  'done @ ' + getTS() + '<br><br>';
+var doOnSuccess = function (idx, ts) {
+
+	var onSuccess = function (position) {
+		var outStr = 
+			'Request #' + idx + ' @ ' + ts 							+ '<br>' +
+			'Latitude: '          + position.coords.latitude          + '<br>' +
+			'Longitude: '         + position.coords.longitude         + '<br>' +
+			'Altitude: '          + position.coords.altitude          + '<br>' +
+			'Accuracy: '          + position.coords.accuracy          + '<br>' +
+			'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '<br>' +
+			'Heading: '           + position.coords.heading           + '<br>' +
+			'Speed: '             + position.coords.speed             + '<br>' +
+			'Timestamp: '         + position.timestamp                + '<br>' +
+			'done @ ' + getTS() + '<br><br>';
 	
-	document.getElementById('wout').innerHTML += outStr;
+		document.getElementById('wout').innerHTML += outStr;
+	};
+	return onSuccess;
 };
 
 // onError Callback receives a PositionError object
@@ -50,7 +54,7 @@ function onError(error) {
 
 
 function doBtnClick () {
-   navigator.geolocation.getCurrentPosition(function(position) {onSuccess(position, +theCnt, getTS());}, onError, 
+   navigator.geolocation.getCurrentPosition(doOnSuccess(+theCnt, getTS()), onError, 
 								{ maximumAge: 1000, timeout: 5000, enableHighAccuracy: true });
 	theCnt += 1;
 }
