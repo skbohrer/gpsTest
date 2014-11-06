@@ -24,7 +24,7 @@ function getTS() {
 // This method accepts a Position object, which contains the
 // current GPS coordinates
 //
-function onSuccess(position, idx, ts) {
+var onSuccess = function (position, idx, ts) {
     var outStr = 
 		  'Request #' + idx + ' @ ' + ts 							+ '<br>' +
 		  'Latitude: '          + position.coords.latitude          + '<br>' +
@@ -38,7 +38,7 @@ function onSuccess(position, idx, ts) {
 		  'done @ ' + getTS() + '<br><br>';
 	
 	document.getElementById('wout').innerHTML += outStr;
-}
+};
 
 // onError Callback receives a PositionError object
 //
