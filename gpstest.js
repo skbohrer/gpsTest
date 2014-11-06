@@ -29,14 +29,8 @@ var doOnSuccess = function (idx, ts) {
 	var onSuccess = function (position) {
 		var outStr = 
 			'Request #' + idx + ' @ ' + ts 							+ '<br>' +
-			'Latitude: '          + position.coords.latitude          + '<br>' +
-			'Longitude: '         + position.coords.longitude         + '<br>' +
-			'Altitude: '          + position.coords.altitude          + '<br>' +
-			'Accuracy: '          + position.coords.accuracy          + '<br>' +
-			'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '<br>' +
-			'Heading: '           + position.coords.heading           + '<br>' +
-			'Speed: '             + position.coords.speed             + '<br>' +
-			'Timestamp: '         + position.timestamp                + '<br>' +
+			'Lat/Long: ' + position.coords.latitude + ' ' + position.coords.longitude + '<br>' +
+			'Accuracy: ' + position.coords.accuracy          + '<br>' +
 			'done @ ' + getTS() + '<br><br>';
 	
 		document.getElementById('wout').innerHTML += outStr;
