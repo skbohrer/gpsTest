@@ -3,8 +3,8 @@
         xmlns:gap   = "http://phonegap.com/ns/1.0"
 		xmlns:android = "http://schemas.android.com/apk/res/android"
         id          = "com.steadmanhill.gpstest"
-        versionCode = "6"
-        version     = "1.3" >
+        versionCode = "7"
+        version     = "1.4" >
 
     <!-- versionCode is Android only: increase each build, unrelated to displayed version -->
 
@@ -27,7 +27,7 @@
 		<access origin="*" />
 
 				<!-- Android -->
-		<preference name="android-minSdkVersion" value="7" /> 			<!-- android: MIN SDK version supported on the target device. -->
+		<preference name="android-minSdkVersion" value="17" /> 			<!-- android: MIN SDK version supported on the target device. -->
 		<preference name="android-targetSdkVersion" value="19" /> 		<!-- highest version app was tested on. 19 == KitKat -->
 
 		<gap:platform name="android" />
