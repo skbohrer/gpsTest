@@ -4,7 +4,7 @@
 		xmlns:android = "http://schemas.android.com/apk/res/android"
         id          = "com.steadmanhill.gpstest"
         versionCode = "7"
-        version     = "1.4" >
+        version     = "1.4.1" >
 
     <!-- versionCode is Android only: increase each build, unrelated to displayed version -->
 
@@ -20,16 +20,16 @@
 
 				<!-- preferences -->
 		<preference name="permissions" value="none"/>			<!-- core plugins add own permissions -->
-		<preference name="phonegap-version" value="3.6.3" /> 	<!-- all: current version of PhoneGap -->
+		<preference name='phonegap-version' value='cli-8.1.1' /> <!-- all: current version of PhoneGap -->
 		<preference name="orientation" value="default" /> 		<!-- all: default means both landscape and portrait are enabled -->
 		<preference name="target-device" value="universal" /> 	<!-- all: possible values handset, tablet, or universal -->
 		<preference name="fullscreen" value="false" /> 			<!-- all: hides the status bar at the top of the screen -->
 		<access origin="*" />
 
 				<!-- Android -->
-		<preference name="android-minSdkVersion" value="17" /> 			<!-- android: MIN SDK version supported on the target device. -->
-		<preference name="android-targetSdkVersion" value="19" /> 		<!-- highest version app was tested on. 19 == KitKat -->
+		<preference name="android-minSdkVersion" value="19" /> 			<!-- android: MIN SDK version supported. 19 == Android 4.4 kit kat -->
+		<preference name="android-targetSdkVersion" value="26" /> 		<!-- highest version app was tested on. 26==8.0 -->
 
 		<gap:platform name="android" />
-		<gap:plugin name="org.apache.cordova.geolocation" version="0.3.10" />
+		<plugin name="cordova-plugin-geolocation" spec="~4.0.2" />
 </widget>
