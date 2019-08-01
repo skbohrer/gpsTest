@@ -3,3 +3,7 @@ div {
     height: 450px;
     overflow: scroll;
 } 
+
+button {
+	font-size: 3em;
+}

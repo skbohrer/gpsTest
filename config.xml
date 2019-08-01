@@ -3,8 +3,8 @@
         xmlns:gap   = "http://phonegap.com/ns/1.0"
 		xmlns:android = "http://schemas.android.com/apk/res/android"
         id          = "com.steadmanhill.gpstest"
-        versionCode = "8"
-        version     = "1.4.2" >
+        versionCode = "9"
+        version     = "1.4.3" >
 
     <!-- versionCode is Android only: increase each build, unrelated to displayed version -->
 

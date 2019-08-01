@@ -2,7 +2,7 @@
 
 var gps = {
 	theCnt: 0,
-
+                                                                              
 
 	getTS: function () {
 		var d = new Date();
@@ -21,6 +21,10 @@ var gps = {
 		return twoDgt(d.getHours()) + ":" + twoDgt(d.getMinutes()) + ":" + twoDgt(d.getSeconds());
 	},
 
+	msg: function (outStr) {
+		document.getElementById('wout').innerHTML += (outStr + '<br><br>');
+	},
+
 // onSuccess Callback
 // This method accepts a Position object, which contains the
 // current GPS coordinates
@@ -32,12 +36,13 @@ var gps = {
 				'Request #' + idx + ' @ ' + ts 	+ '<br>' +
 				'Lat/Long: ' + position.coords.latitude + ' ' + position.coords.longitude + '<br>' +
 				'Accuracy: ' + position.coords.accuracy + '<br>' +
-				'done @ ' + gps.getTS() + '<br><br>';
+				'done @ ' + gps.getTS();
 		
-			document.getElementById('wout').innerHTML += outStr;
+			gps.msg(outStr);
 		};
 		return onSuccess;
 	},
+
 
 	repeatSuccess: function(position) {
 		var outStr = 
@@ -48,18 +53,19 @@ var gps = {
 			' Alt Accuracy:' + position.coords.altitudeAccuracy + '<br>' +
 			'Heading: ' + position.coords.heading + 
             ' Speed: '  + position.coords.speed + '<br>' +
-            'Timestamp: ' + position.timestamp + '<br><br>';
+            'Timestamp: ' + position.timestamp;
 	
-		document.getElementById('wout').innerHTML += outStr;
+		gps.msg(outStr);
 	},
 
 // onError Callback receives a PositionError object
 //
 	onError: function(error) {
 		var outStr = 'Error code: '    + error.code    + '<br>' +
-			  'message: ' + error.message + '<br><br>';
-		document.getElementById('wout').innerHTML += outStr;
-	},
+			  'message: ' + error.message;
+		gps.msg(outStr);
+
+    },
 
 
 	doBtnClick: function () {
@@ -70,22 +76,25 @@ var gps = {
 
 	watchID: null,
 
-	startWatch: function () {
-	   gps.watchID = navigator.geolocation.watchPosition(gps.repeatSuccess, gps.onError, 
+	togWatch: function () {
+		if ( gps.watchID ) {
+			gps.msg('EndWatch, ID was: ' + gps.watchID);
+			navigator.geolocation.clearWatch(gps.watchID);
+			gps.watchID = null;
+		} else {
+			gps.watchID = navigator.geolocation.watchPosition(gps.repeatSuccess, gps.onError, 
 									{ maximumAge: 10000, timeout: 30000, enableHighAccuracy: true });
+			gps.msg('StartWatch, ID is: '+ gps.watchID);
+		}
 
 	},
 
-	stopWatch: function () {
-		navigator.geolocation.clearWatch(gps.watchID);
-	}
 };
 
 // Call on Android device ready event
 function init() {
-  document.getElementById('getLoc').onclick = gps.doBtnClick;
-  document.getElementById('startWatch').onclick = gps.startClick;
-  document.getElementById('stopWatch').onclick = gps.stopClick;
+	document.getElementById('getLoc').onclick = gps.doBtnClick;
+	document.getElementById('togWatch').onclick = gps.togWatch;
 }
 
 // Wait for device API libraries to load
