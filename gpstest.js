@@ -46,9 +46,9 @@ var gps = {
 			if (idx === -1) {
 				gps.lat = position.coords.latitude;
 				gps.long = position.coords.longitude;
-				gps.msg('Set Point: ' + gps.latitude + ' ' + gps.longitude);
-				document.getElementById('lat').innerHTML = gps.latitude;
-				document.getElementById('long').innerHTML = gps.longitude;
+				gps.msg('Set Point: ' + gps.lat + ' ' + gps.long);
+				document.getElementById('lat').innerHTML = gps.lat;
+				document.getElementById('long').innerHTML = gps.long;
 			} else {
 				gps.msg(outStr);
 			}
