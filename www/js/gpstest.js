@@ -77,7 +77,7 @@ var gps = {
 				document.getElementById('lat').innerHTML = gps.lat;
 				document.getElementById('lon').innerHTML = gps.lon;
 			} else {
-		        outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
+		     //   outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
 				gps.msg(outStr);
 			}
 		};
@@ -186,6 +186,7 @@ function init() {
 	document.getElementById('togWatch').onclick = gps.togWatch;
 	document.getElementById('cls').onclick = gps.clear;
 	document.getElementById('setPoint').onclick = gps.setPoint;
+	gps.msg('Init Complete');
 }
 
 // Wait for device API libraries to load
