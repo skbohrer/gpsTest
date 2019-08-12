@@ -93,7 +93,7 @@ var gps = {
             'Speed: '  + position.coords.speed +
             ' Timestamp: ' + position.timestamp;
 
-        outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
+       // outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
 	
 		gps.msg(outStr);
 	},
@@ -169,9 +169,9 @@ var gps = {
 
 		for (i = 0; i < gps.stops.length; i += 1) {
 			curDist = gps.getStopDist(gps.stops[i], curLat, curLon);
-			if (! minStop || curDist < minDist) {
-				minStop = gps.stops[i];
+			if (( !minStop ) || curDist < minDist) {
 				minDist = curDist;
+				minStop = gps.stops[i];
 			}
 		}
 		if ( minStop ) {
