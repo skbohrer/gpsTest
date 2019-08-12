@@ -22,12 +22,12 @@ var gps = {
 	},
 
 	msg: function (outStr) {
-		document.getElementById('wout').innerHTML += (outStr + '<br><br>');
+		document.getElementById('wout').value += (outStr + '<br><br>');
 	},
 
 
 	clear: function() {
-		document.getElementById('wout').innerHTML = '';
+		document.getElementById('wout').value = '';
 	},
 
 // onSuccess Callback

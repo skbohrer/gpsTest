@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!--<meta name="viewport" content="initial-scale=1.0, width=device-width, user-scalable=no" />-->
     <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
@@ -12,9 +13,9 @@
 	<button id='cls'>Clear Output</button> 
 	<hr>
 	Lat: <div id='lat' >0</div> Long: <div id='long' class='il'>0</div><br><br>
-	Output <br>
-	<div id='wout' class='out'>
-	</div>
+	<label>Output: </label><br> 
+	<textarea id="wout"></textarea>
+
 	<script type='text/javascript' src='cordova.js'></script>
 	<script type='text/javascript' src='js/gpstest.js'></script>
 </body>
