@@ -77,7 +77,7 @@ var gps = {
 				document.getElementById('lat').innerHTML = gps.lat;
 				document.getElementById('lon').innerHTML = gps.lon;
 			} else {
-		     //   outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
+		        outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
 				gps.msg(outStr);
 			}
 		};
@@ -93,7 +93,7 @@ var gps = {
             'Speed: '  + position.coords.speed +
             ' Timestamp: ' + position.timestamp;
 
-       // outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
+       	outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
 	
 		gps.msg(outStr);
 	},
@@ -109,16 +109,22 @@ var gps = {
 
 	dist: function(lat1, lon1, lat2, lon2) {
 		// haversine from https://www.movable-type.co.uk/scripts/latlong.html 
-		var R = 6371e3; // metres
-		var φ1 = lat1.toRadians();
-		var φ2 = lat2.toRadians();
-		var Δφ = (lat2-lat1).toRadians();
-		var Δλ = (lon2-lon1).toRadians();
+		var radLat1, radLat2, deltaradLat, deltaradLon, a, c, R = 6371e3; // metres
 
-		var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-		        Math.cos(φ1) * Math.cos(φ2) *
-		        Math.sin(Δλ/2) * Math.sin(Δλ/2);
-		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		function toRad(deg) {
+			return Math.PI * deg / 180;
+		}
+		
+		radLat1 = toRad(lat1);
+		radLat2 = toRad(lat2);
+		deltaradLat = toRad(lat2-lat1);
+		deltaradLon = toRad(lon2-lon1);
+
+		a = Math.sin(deltaradLat/2) * Math.sin(deltaradLat/2) +
+		        Math.cos(radLat1) * Math.cos(radLat2) *
+		        Math.sin(deltaradLon/2) * Math.sin(deltaradLon/2);
+
+		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
 		return R * c;
 	},
