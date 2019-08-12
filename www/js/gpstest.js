@@ -22,12 +22,12 @@ var gps = {
 	},
 
 	msg: function (outStr) {
-		document.getElementById('wout').value += (outStr + '<br><br>');
+		document.getElementById('wout').innerHTML += (outStr + '<br><br>');
 	},
 
 
 	clear: function() {
-		document.getElementById('wout').value = '';
+		document.getElementById('wout').innerHTML = '';
 	},
 
 // onSuccess Callback
@@ -39,17 +39,18 @@ var gps = {
 		var onSuccess = function (position) {
 			var outStr = 
 				'Request #' + idx + ' @ ' + ts 	+ '<br>' +
-				'Lat/Long: ' + position.coords.latitude + ' ' + position.coords.longitude + '<br>' +
-				'Accuracy: ' + position.coords.accuracy + '<br>' +
-				'done @ ' + gps.getTS();
+				'Lat/Long: ' + position.coords.latitude + ' ' + position.coords.longitude + 
+				' Accuracy: ' + position.coords.accuracy + 
+				'  done @ ' + gps.getTS();
 
 			if (idx === -1) {
 				gps.lat = position.coords.latitude;
-				gps.long = position.coords.longitude;
-				gps.msg('Set Point: ' + gps.lat + ' ' + gps.long);
+				gps.lon = position.coords.longitude;
+				gps.msg('Set Point: ' + gps.lat + ' ' + gps.lon);
 				document.getElementById('lat').innerHTML = gps.lat;
-				document.getElementById('long').innerHTML = gps.long;
+				document.getElementById('lon').innerHTML = gps.lon;
 			} else {
+		        outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
 				gps.msg(outStr);
 			}
 		};
@@ -62,11 +63,10 @@ var gps = {
 			'Pos Change' + ' @ ' + gps.getTS() 	+ '<br>' +
 			'Lat/Long: ' + position.coords.latitude + ' ' + position.coords.longitude + 
 			' Accuracy: ' + position.coords.accuracy + '<br>' +
-			'Altitude: ' + position.coords.altitude + 
-			' Alt Accuracy:' + position.coords.altitudeAccuracy + '<br>' +
-			'Heading: ' + position.coords.heading + 
-            ' Speed: '  + position.coords.speed + '<br>' +
-            'Timestamp: ' + position.timestamp;
+            'Speed: '  + position.coords.speed +
+            ' Timestamp: ' + position.timestamp;
+
+        outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
 	
 		gps.msg(outStr);
 	},
@@ -78,6 +78,34 @@ var gps = {
 			  'message: ' + error.message;
 		gps.msg(outStr);
     },
+
+
+	dist: function(lat1, lon1, lat2, lon2) {
+		// haversine from https://www.movable-type.co.uk/scripts/latlong.html 
+		var R = 6371e3; // metres
+		var φ1 = lat1.toRadians();
+		var φ2 = lat2.toRadians();
+		var Δφ = (lat2-lat1).toRadians();
+		var Δλ = (lon2-lon1).toRadians();
+
+		var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+		        Math.cos(φ1) * Math.cos(φ2) *
+		        Math.sin(Δλ/2) * Math.sin(Δλ/2);
+		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+
+		return R * c;
+	},
+
+	distToTarg: function(lat1, lon1) {
+		var dist;
+
+		if ( !(gps.lat || gps.lon) ) {
+			return '';		// no target
+		}
+
+		dist = gps.dist(lat1, lon1, gps.lat, gps.lon);
+		return ' Dist: ' + dist.toString();
+	},
 
 
 	doBtnClick: function() {
@@ -95,7 +123,7 @@ var gps = {
 			gps.watchID = null;
 		} else {
 			gps.watchID = navigator.geolocation.watchPosition(gps.repeatSuccess, gps.onError, 
-									{ maximumAge: 10000, timeout: 30000, enableHighAccuracy: true });
+									{ maximumAge: 5000, timeout: 30000, enableHighAccuracy: true });
 			gps.msg('StartWatch, ID is: '+ gps.watchID);
 		}
 	},
@@ -104,6 +132,7 @@ var gps = {
 	   navigator.geolocation.getCurrentPosition(gps.doOnSuccess(-1, gps.getTS()), gps.onError, 
 									{ maximumAge: 2000, timeout: 10000, enableHighAccuracy: true });
 	}
+
 };
 
 // Call on Android device ready event
