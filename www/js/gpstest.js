@@ -109,25 +109,20 @@ var gps = {
 
 
 	dist: function(lat1, lon1, lat2, lon2) {
-		// haversine from https://www.movable-type.co.uk/scripts/latlong.html 
-		var radLat1, radLat2, deltaradLat, deltaradLon, a, c, R = 6371e3; // metres
-
-		function toRad(deg) {
-			return Math.PI * deg / 180;
-		}
+		// haversine from https://rosettacode.org/wiki/Haversine_formula#C
+		var dx, dy, dz, cosLat1, deg2rad = Math.PI/180, R = 6371000; // earth radius in metres
 		
-		radLat1 = toRad(lat1);
-		radLat2 = toRad(lat2);
-		deltaradLat = toRad(lat2-lat1);
-		deltaradLon = toRad(lon2-lon1);
+		lon1 -= lon2;
+		lon1 *= deg2rad;
+		lat1 *= deg2rad;
+		lat2 *= deg2rad;
 
-		a = Math.sin(deltaradLat/2) * Math.sin(deltaradLat/2) +
-		        Math.cos(radLat1) * Math.cos(radLat2) *
-		        Math.sin(deltaradLon/2) * Math.sin(deltaradLon/2);
+		dz = Math.sin(lat1) - Math.sin(lat2);
+		cosLat1 = Math.cos(lat1);
+		dx = Math.cos(lon1) * cosLat1 - Math.cos(lat2);
+		dy = Math.sin(lon1) * cosLat1;
 
-		c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-
-		return R * c;
+		return Math.asin(Math.sqrt(dx*dx + dy*dy + dz*dz) / 2) * 2 * R;
 	},
 
 	distToTarg: function(lat1, lon1) {
