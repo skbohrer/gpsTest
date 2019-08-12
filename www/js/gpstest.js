@@ -28,7 +28,33 @@ var gps = {
 		{ stop: "South St @ Bardwell St", lat: 42.308378, lon: -71.115619 },
 		{ stop: "South St @ Jamaica St", lat: 42.306131, lon: -71.115091 },
 		{ stop: "South St @ St Rose St", lat: 42.304396, lon: -71.114769 },
-		{ stop: "Forest Hills", lat: 42.300749, lon: -71.114314 }
+		{ stop: "Forest Hills", lat: 42.300749, lon: -71.114314 },
+
+
+		{ stop: "Inb. Forest Hills", lat:42.300749, lon:-71.114314 },
+		{ stop: "Inb. South St @ Spalding St", lat:42.303741, lon:-71.114635 },
+		{ stop: "Inb. South St @ Child St", lat:42.306545, lon:-71.115144 },
+		{ stop: "Inb. South St @ Sedgwick St", lat:42.308588, lon:-71.115487 },
+		{ stop: "Inb. Centre St @ Seaverns Ave", lat:42.312198, lon:-71.114144 },
+		{ stop: "Inb. Centre St @ Saint John St", lat:42.314197, lon:-71.114036 },
+		{ stop: "Inb. Centre St @ Robinwood Ave", lat:42.316951, lon:-71.113368 },
+		{ stop: "Inb. Centre St @ Roseway St", lat:42.318993, lon:-71.111932 },
+		{ stop: "Inb. S Huntington Ave @ Perkins St", lat:42.321698, lon:-71.112025 },
+		{ stop: "Inb. S Huntington Ave @ Bynner St", lat:42.32381, lon:-71.112191 },
+		{ stop: "Inb. S Huntington Ave @ VA Hospital", lat:42.326594, lon:-71.111284 },
+		{ stop: "Inb. S Huntington Ave @ Heath St", lat:42.328697, lon:-71.110671 },
+		{ stop: "Inb. 100 S Huntington Ave", lat:42.329401, lon:-71.11093 },
+		{ stop: "Inb. S Huntington Ave @ Huntington Ave", lat:42.33187, lon:-71.111965 },
+		{ stop: "Inb. Huntington Ave @ Parker Hill Ave", lat:42.333092, lon:-71.109678 },
+		{ stop: "Inb. Huntington Ave opp Fenwood Rd", lat:42.333704, lon:-71.105586 },
+		{ stop: "Inb. Huntington Ave @ Wigglesworth St", lat:42.334833, lon:-71.102701 },
+		{ stop: "Inb. Huntington Ave @ Longwood Ave", lat:42.335831, lon:-71.099868 },
+		{ stop: "Inb. Huntington Ave @ Ruggles St", lat:42.337612, lon:-71.095267 },
+		{ stop: "Inb. 360 Huntington Ave", lat:42.34016, lon:-71.088899 },
+		{ stop: "Inb. Huntington Ave @ Gainsborough St", lat:42.341244, lon:-71.08651 },
+		{ stop: "Inb. Belvidere St @ Huntington Ave", lat:42.345533, lon:-71.081932 },
+		{ stop: "Inb. Back Bay", lat:42.347441, lon:-71.074592 }
+
 	], 
 
 	getTS: function () {
