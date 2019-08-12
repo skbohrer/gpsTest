@@ -79,6 +79,7 @@ var gps = {
 			} else {
 		        outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
 				gps.msg(outStr);
+				gps.minStopDist(position.coords.latitude, position.coords.longitude);
 			}
 		};
 		return onSuccess;
@@ -137,13 +138,13 @@ var gps = {
 		}
 
 		dist = gps.dist(lat1, lon1, gps.lat, gps.lon);
-		return ' Dist: ' + dist.toString();
+		return '<br>Dist: ' + dist.toString();
 	},
 
 
 	doBtnClick: function() {
 	   navigator.geolocation.getCurrentPosition(gps.doOnSuccess(+gps.theCnt, gps.getTS()), gps.onError, 
-									{ maximumAge: 2000, timeout: 10000, enableHighAccuracy: true });
+									{ maximumAge: 5000, timeout: 10000, enableHighAccuracy: true });
 		gps.theCnt += 1; 
 	},
 
@@ -156,14 +157,14 @@ var gps = {
 			gps.watchID = null;
 		} else {
 			gps.watchID = navigator.geolocation.watchPosition(gps.repeatSuccess, gps.onError, 
-									{ maximumAge: 5000, timeout: 30000, enableHighAccuracy: true });
+									{ maximumAge: 10000, timeout: 30000, enableHighAccuracy: true });
 			gps.msg('StartWatch, ID is: '+ gps.watchID);
 		}
 	},
 
  	setPoint: function() {
 	   navigator.geolocation.getCurrentPosition(gps.doOnSuccess(-1, gps.getTS()), gps.onError, 
-									{ maximumAge: 2000, timeout: 10000, enableHighAccuracy: true });
+									{ maximumAge: 5000, timeout: 10000, enableHighAccuracy: true });
 	},
 
 	getStopDist: function(obj, lat, lon) {
