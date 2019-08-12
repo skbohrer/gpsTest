@@ -57,6 +57,8 @@ var gps = {
 		document.getElementById('wout').innerHTML = '';
 	},
 
+	prevLat: 0,
+	prevLon: 0,
 // onSuccess Callback
 // This method accepts a Position object, which contains the
 // current GPS coordinates
@@ -88,15 +90,16 @@ var gps = {
 
 	repeatSuccess: function(position) {
 		var outStr = 
-			'Pos Change' + ' @ ' + gps.getTS() 	+ '<br>' +
+			'Pos Change' + ' @ ' + gps.getTS() 	+ 
+			' -- Speed: '  + position.coords.speed + '<br>' +
 			'Lat/Long: ' + position.coords.latitude + ' ' + position.coords.longitude + 
-			' Accuracy: ' + position.coords.accuracy + '<br>' +
-            'Speed: '  + position.coords.speed +
-            ' Timestamp: ' + position.timestamp;
-
+			' Accuracy: ' + position.coords.accuracy;
+            
        	outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
-	
+       	gps.lat = position.coords.latitude;
+       	gps.lon = position.coords.longitude;
 		gps.msg(outStr);
+		gps.minStopDist(gps.lat, gps.lon);
 	},
 
 // onError Callback receives a PositionError object
@@ -133,7 +136,7 @@ var gps = {
 		}
 
 		dist = gps.dist(lat1, lon1, gps.lat, gps.lon);
-		return '<br>Dist: ' + dist.toString();
+		return '<br>DeltaDist: ' + dist.toString();
 	},
 
 
