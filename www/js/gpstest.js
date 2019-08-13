@@ -208,7 +208,10 @@ var gps = {
 		}
 		if ( minStop ) {
 			gps.msg('Closest stop: ' + minStop.stop + ' Dist:' + minDist);
+		} else {
+			return;
 		}
+		
 		if ( minStop != gps.curStop ) {
 			gps.curStop = minStop;
 			gps.msg('* * Stop Changed * *');
