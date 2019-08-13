@@ -1,5 +1,15 @@
 'use strict';
 
+var st = {
+	noState: 0,
+	approach: 1,
+	near: 2,
+	gone: 3,
+	nearLimit: 40,
+	goneLimit: 55
+};
+
+
 var gps = {
 	theCnt: 0,
 
@@ -194,7 +204,7 @@ var gps = {
 	},
 
 	curStop: null,
-	curState: st.noState,
+	state: st.noState,
 
 	setStopState: function (curLat, curLon) {
 		var i, curDist, minDist, minStop = null;
@@ -211,7 +221,7 @@ var gps = {
 		} else {
 			return;
 		}
-		
+
 		if ( minStop != gps.curStop ) {
 			gps.curStop = minStop;
 			gps.msg('* * Stop Changed * *');
@@ -226,15 +236,6 @@ var gps = {
 			gps.msg('* * Left Stop * *');
 		}
 	}
-};
-
-var st = {
-	noState: 0,
-	approach: 1,
-	near: 2,
-	gone: 3,
-	nearLimit: 40,
-	goneLimit: 55
 };
 
 // Call on Android device ready event
