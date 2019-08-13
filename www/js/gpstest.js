@@ -83,8 +83,6 @@ var gps = {
 		document.getElementById('wout').innerHTML = '';
 	},
 
-	prevLat: 0,
-	prevLon: 0,
 // onSuccess Callback
 // This method accepts a Position object, which contains the
 // current GPS coordinates
@@ -107,7 +105,7 @@ var gps = {
 			} else {
 		        outStr += gps.distToTarg(position.coords.latitude, position.coords.longitude);
 				gps.msg(outStr);
-				gps.minStopDist(position.coords.latitude, position.coords.longitude);
+				gps.setStopState(position.coords.latitude, position.coords.longitude);
 			}
 		};
 		return onSuccess;
@@ -125,7 +123,7 @@ var gps = {
        	gps.lat = position.coords.latitude;
        	gps.lon = position.coords.longitude;
 		gps.msg(outStr);
-		gps.minStopDist(gps.lat, gps.lon);
+		gps.setStopState(gps.lat, gps.lon);
 	},
 
 // onError Callback receives a PositionError object
@@ -151,7 +149,7 @@ var gps = {
 		dx = Math.cos(lon1) * cosLat1 - Math.cos(lat2);
 		dy = Math.sin(lon1) * cosLat1;
 
-		return Math.asin(Math.sqrt(dx*dx + dy*dy + dz*dz) / 2) * 2 * R;
+		return Math.round(Math.asin(Math.sqrt(dx*dx + dy*dy + dz*dz) / 2) * 2 * R);
 	},
 
 	distToTarg: function(lat1, lon1) {
@@ -195,7 +193,10 @@ var gps = {
 		return gps.dist(obj.lat, obj.lon, lat, lon);
 	},
 
-	minStopDist: function (curLat, curLon) {
+	curStop: null,
+	curState: st.noState,
+
+	setStopState: function (curLat, curLon) {
 		var i, curDist, minDist, minStop = null;
 
 		for (i = 0; i < gps.stops.length; i += 1) {
@@ -208,7 +209,29 @@ var gps = {
 		if ( minStop ) {
 			gps.msg('Closest stop: ' + minStop.stop + ' Dist:' + minDist);
 		}
+		if ( minStop != gps.curStop ) {
+			gps.curStop = minStop;
+			gps.msg('* * Stop Changed * *');
+			gps.state = st.approach;
+		}
+		if ( (gps.state === st.approach) && (minDist < st.nearLimit) ) {
+			gps.state = st.near;
+			gps.msg('* * Near Stop * *');
+		}
+		if ( (gps.state === st.near) && (minDist > st.goneLimit) ) {
+			gps.state = st.gone;
+			gps.msg('* * Left Stop * *');
+		}
 	}
+};
+
+var st = {
+	noState: 0,
+	approach: 1,
+	near: 2,
+	gone: 3,
+	nearLimit: 40,
+	goneLimit: 55
 };
 
 // Call on Android device ready event
