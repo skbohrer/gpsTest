@@ -189,7 +189,7 @@ var gps = {
 			gps.watchID = null;
 		} else {
 			gps.watchID = navigator.geolocation.watchPosition(gps.repeatSuccess, gps.onError, 
-									{ maximumAge: 10000, timeout: 30000, enableHighAccuracy: true });
+									{ maximumAge: 2000, timeout: 30000, enableHighAccuracy: true });
 			gps.msg('StartWatch, ID is: '+ gps.watchID);
 		}
 	},
